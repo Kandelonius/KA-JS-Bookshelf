@@ -8,14 +8,45 @@
 var xPositions = [];//for snow
 var yPositions = [];
 var snowFlakes = 100;
+var bookX = 20, bookY = 20;
 
 background(161, 145, 204);
 var book = [
     {title: "The Giver",
-    stars: 4,
+    stars: 3,
     author: "Lois Lowry",
     color: color(255, 0, 0),
-    recommended: "NA"
+    recommended: "did not read"
+    },
+    {title: "Mother Night",
+    stars: 4,
+    author: "Kurt Vonnegut",
+    color: color(100, 150, 255),
+    recommended: true
+    },
+    {title: "Vita Nuova",
+    stars: 2,
+    author: "Dante Alighieri",
+    color: color(255, 150, 255),
+    recommended: false
+    },
+    {title: "Divine Comedy",
+    stars: 4,
+    author: "Dante Alighieri",
+    color: color(184, 9, 184),
+    recommended: true
+    },
+    {title: "Choke",
+    stars: 4,
+    author: "Chuck Palaniuk",
+    color: color(136, 143, 44),
+    recommended: true
+    },
+    {title: "Catch-22",
+    stars: 3,
+    author: "Joseph Heller",
+    color: color(174, 245, 241),
+    recommended: "have not read, but want to"
     }
 ];
 // draw shelf and window
@@ -23,7 +54,7 @@ stroke(0, 0, 0);
 fill(200, 170, 140);
 rect(0, 121, 250, 380);
 fill(173, 117, 33);
-for(var i = 120; i < 321; i+= 100){
+for(var i = 120; i < 350; i+= 110){
     rect(10, i, 240, 10);
 }
 rect(250, 120, 10, 400);
@@ -39,20 +70,41 @@ for(var i = 0; i < snowFlakes; i++){//establish x and y variables for snow
 }
 
 for(var i = 0; i < book.length; i++){
-    fill(book[i].color);
-    rect(10, 20, 90, 100);
-    fill(0, 0, 0);
-    text(book[i].title, 15, 29, 70, 100);
-    text(book[i].author, 15, 49, 70, 100);
-    if(book[i].recommended === true){
-        image(getImage("creatures/OhNoes-Happy"), 15, 69, 30, 30);
-    }else if(book[i].recommended === false){
-        image(getImage("creatures/OhNoes"), 15, 69, 30, 30);
+    if(i % 2 === 0){
+        fill(book[i].color);
+        rect(bookX - 5, bookY, 90, 100);
+        fill(0, 0, 0);
+        text(book[i].title, bookX, bookY + 5, 70, 100);
+        text(book[i].author, bookX, bookY + 29, 70, 100);
+        if(book[i].recommended === true){
+            image(getImage("creatures/OhNoes-Happy"), bookX, bookY + 49, 25, 25);
+        }else if(book[i].recommended === false){
+            image(getImage("creatures/OhNoes"), bookX, bookY + 49, 25, 25);
+        }else{
+            image(getImage("creatures/OhNoes-Hmm"), bookX, bookY + 49, 25, 25);
+        }
+        for (var j = 0; j < book[i].stars; j++) {
+            image(getImage("cute/Star"), bookX + j * 20, bookY + 69, 20, 30);
+        }
+        bookX += 140;
     }else{
-        image(getImage("creatures/OhNoes-Hmm"), 15, 69, 30, 30);
-    }
-    for (var j = 0; j < book[i].stars; j++) {
-        image(getImage("cute/Star"), 13 + j * 20, 90, 20, 30);
+        fill(book[i].color);
+        rect(bookX - 5, bookY, 90, 100);
+        fill(0, 0, 0);
+        text(book[i].title, bookX, bookY + 5, 70, 100);
+        text(book[i].author, bookX, bookY + 29, 70, 100);
+        if(book[i].recommended === true){
+            image(getImage("creatures/OhNoes-Happy"), bookX, bookY + 49, 25, 25);
+        }else if(book[i].recommended === false){
+            image(getImage("creatures/OhNoes"), bookX, bookY + 49, 25, 25);
+        }else{
+            image(getImage("creatures/OhNoes-Hmm"), bookX, bookY + 49, 25, 25);
+        }
+        for (var j = 0; j < book[i].stars; j++) {
+            image(getImage("cute/Star"), bookX + j * 20, bookY + 69, 20, 30);
+        }
+        bookY += 110;
+        bookX -= 140;
     }
 }
 var draw = function() {
