@@ -1,0 +1,64 @@
+/*
+ *JS uses an array to store some objects (books) with various
+ *properties such as title, author, cover color. Uses a boolean
+ *to state whether I would recomend the book. Finally draw the
+ *shelf with the books.
+ */
+
+var xPositions = [];//for snow
+var yPositions = [];
+var snowFlakes = 100;
+background(161, 145, 204);
+var book = [
+    {title: "The Giver",
+     stars: 4,
+     author: "Lois Lowry"
+    }
+];
+// draw shelf and window
+stroke(0, 0, 0);
+fill(200, 170, 140);
+rect(0, 121, 250, 380);
+fill(173, 117, 33);
+for(var i = 120; i < 321; i+= 100){
+    rect(10, i, 240, 10);
+}
+rect(250, 120, 10, 400);
+rect(0, 120, 10, 400);
+rect(270, 0, 10, 190);
+
+
+
+
+for(var i = 0; i < snowFlakes; i++){//establish x and y variables for snow
+    xPositions.push(random(286,395));
+    yPositions.push(random(0,180));
+}
+
+// draw one book
+fill(214, 255, 219);
+rect(10, 20, 90, 100);
+fill(0, 0, 0);
+text(book[0].title, 15, 29, 70, 100);
+text(book[0].author, 15, 49, 70, 100);
+for (var i = 0; i < book[0].stars; i++) {
+    image(getImage("cute/Star"), 13 + i * 20, 90, 20, 30);
+}
+
+var draw = function() {
+    noStroke();
+    fill(110, 200, 255);//window 119x189 at 281,190 lower left corner
+    rect(281, 0, 120, 189);
+    fill(255, 255, 255);
+    for(var i = 0; i < snowFlakes; i++){
+        ellipse(xPositions[i], yPositions[i], 6, 5);
+        if(yPositions[i] > 193){
+            yPositions[i] = 0; 
+            }else{
+        yPositions[i] += 1;
+        }
+    }
+    stroke(0, 0, 0);
+    fill(173, 117, 33);
+    rect(270, 189, 130, 10);
+};
