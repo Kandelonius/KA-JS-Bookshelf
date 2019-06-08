@@ -8,11 +8,14 @@
 var xPositions = [];//for snow
 var yPositions = [];
 var snowFlakes = 100;
+
 background(161, 145, 204);
 var book = [
     {title: "The Giver",
-     stars: 4,
-     author: "Lois Lowry"
+    stars: 4,
+    author: "Lois Lowry",
+    color: color(255, 0, 0),
+    recommended: "NA"
     }
 ];
 // draw shelf and window
@@ -35,16 +38,23 @@ for(var i = 0; i < snowFlakes; i++){//establish x and y variables for snow
     yPositions.push(random(0,180));
 }
 
-// draw one book
-fill(214, 255, 219);
-rect(10, 20, 90, 100);
-fill(0, 0, 0);
-text(book[0].title, 15, 29, 70, 100);
-text(book[0].author, 15, 49, 70, 100);
-for (var i = 0; i < book[0].stars; i++) {
-    image(getImage("cute/Star"), 13 + i * 20, 90, 20, 30);
+for(var i = 0; i < book.length; i++){
+    fill(book[i].color);
+    rect(10, 20, 90, 100);
+    fill(0, 0, 0);
+    text(book[i].title, 15, 29, 70, 100);
+    text(book[i].author, 15, 49, 70, 100);
+    if(book[i].recommended === true){
+        image(getImage("creatures/OhNoes-Happy"), 15, 69, 30, 30);
+    }else if(book[i].recommended === false){
+        image(getImage("creatures/OhNoes"), 15, 69, 30, 30);
+    }else{
+        image(getImage("creatures/OhNoes-Hmm"), 15, 69, 30, 30);
+    }
+    for (var j = 0; j < book[i].stars; j++) {
+        image(getImage("cute/Star"), 13 + j * 20, 90, 20, 30);
+    }
 }
-
 var draw = function() {
     noStroke();
     fill(110, 200, 255);//window 119x189 at 281,190 lower left corner
